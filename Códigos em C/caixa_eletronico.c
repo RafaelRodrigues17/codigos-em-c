@@ -20,7 +20,7 @@ void consulta_extrato (){
     printf("\nSaldo final: %.2f\n", total);
 }
 void consulta_saldo (){
-    printf("Saldo:              R$ %.2f", saldo);
+    printf("Saldo:            R$ %.2f", saldo);
     printf("\nLimite:           R$ %.2f", limite);
     printf("\nDisponivel:       R$ %.2f", total = saldo + limite);
 }

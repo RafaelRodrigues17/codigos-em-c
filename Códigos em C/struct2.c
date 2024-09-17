@@ -12,9 +12,9 @@ struct st_aluno{
 
     int i;
     for(i = 0; i < 5; i++){
-        printf("Digite seu nome: ");
+        printf("\nDigite seu nome: ");
         fgets(aluno1[i].nome, 100, stdin);
-        printf("\nDigite sua matricula: ");
+        printf("Digite sua matricula: ");
         scanf("%d", &aluno1[i].matricula);
         getchar();
         printf("Digite seu curso: ");

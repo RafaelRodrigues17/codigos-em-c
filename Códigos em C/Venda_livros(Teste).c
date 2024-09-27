@@ -23,39 +23,50 @@ void cadastrarLivro() {
 
     Livro livro;
 
-    printf("Código de barras: ");
+    printf("Codigo de barras: ");
     scanf("%s", livro.codigoBarras);
-    printf("Título: ");
-    scanf(" %[^\n]", livro.titulo); // Para aceitar strings com espaços
+    printf("Titulo: ");
+    scanf(" %[^\n]", livro.titulo);
     printf("Autor: ");
     scanf(" %[^\n]", livro.autor);
-    printf("Ano de publicação: ");
+    printf("Ano de publicacao: ");
     scanf("%d", &livro.anoPublicacao);
     printf("Quantidade em estoque: ");
     scanf("%d", &livro.quantidade);
+    
+    while (livro.quantidade < 0) {
+        printf("Quantidade invalida! Insira novamente: ");
+        scanf("%d", &livro.quantidade);
+    }
+
     printf("Valor de venda: ");
     scanf("%f", &livro.valorVenda);
+    
+    while (livro.valorVenda < 0) {
+        printf("Valor invalido! Insira novamente: ");
+        scanf("%f", &livro.valorVenda);
+    }
 
-    estoque[totalLivros] = livro;
-    totalLivros++;
+    estoque[totalLivros++] = livro;
     printf("Livro cadastrado com sucesso!\n");
 }
 
 void consultarLivro() {
     char codigo[20];
-    printf("Digite o código de barras para consulta: ");
+    printf("Digite o codigo de barras para consulta: ");
     scanf("%s", codigo);
 
     for (int i = 0; i < totalLivros; i++) {
         if (strcmp(estoque[i].codigoBarras, codigo) == 0) {
-            printf("Título: %s\n", estoque[i].titulo);
+            printf("Titulo: %s\n", estoque[i].titulo);
             printf("Autor: %s\n", estoque[i].autor);
-            printf("Ano de publicação: %d\n", estoque[i].anoPublicacao);
+            printf("Ano de publicacao: %d\n", estoque[i].anoPublicacao);
             printf("Valor por unidade: %.2f\n", estoque[i].valorVenda);
+            printf("Quantidade em estoque: %d\n", estoque[i].quantidade);
             return;
         }
     }
-    printf("Livro não encontrado.\n");
+    printf("Livro nao encontrado.\n");
 }
 
 void venderLivro() {
@@ -64,11 +75,12 @@ void venderLivro() {
     float totalCompra = 0;
 
     while (1) {
-        printf("Digite o código de barras para vender (ou 'sair' para finalizar): ");
+        printf("Digite o codigo de barras para vender (ou 'sair' para finalizar): ");
         scanf("%s", codigo);
 
-        if (strcmp(codigo, "sair") == 0)
+        if (strcmp(codigo, "sair") == 0) {
             break;
+        }
 
         printf("Quantidade a vender: ");
         scanf("%d", &quantidadeVendida);
@@ -79,7 +91,7 @@ void venderLivro() {
                     estoque[i].quantidade -= quantidadeVendida;
                     totalCompra += quantidadeVendida * estoque[i].valorVenda;
                     printf("Livro vendido: %s, Unidades: %d, Valor unitário: %.2f\n", 
-                        estoque[i].titulo, quantidadeVendida, estoque[i].valorVenda);
+                           estoque[i].titulo, quantidadeVendida, estoque[i].valorVenda);
                 } else {
                     printf("Quantidade insuficiente em estoque.\n");
                 }
@@ -94,7 +106,7 @@ void venderLivro() {
 void exibirEstoque() {
     printf("Itens em estoque:\n");
     for (int i = 0; i < totalLivros; i++) {
-        printf("Código: %s | Título: %s | Quantidade: %d | Preço: %.2f\n",
+        printf("Codigo: %s | Titulo: %s | Quantidade: %d | Preco: %.2f\n",
                estoque[i].codigoBarras, estoque[i].titulo, estoque[i].quantidade, estoque[i].valorVenda);
     }
 }
@@ -109,7 +121,7 @@ int main() {
         printf("3. Vender Livro\n");
         printf("4. Exibir Estoque\n");
         printf("5. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -129,7 +141,7 @@ int main() {
                 printf("Saindo...\n");
                 return 0;
             default:
-                printf("Opção inválida!\n");
+                printf("Opcao invalida! Tente novamente.\n");
         }
     }
 
